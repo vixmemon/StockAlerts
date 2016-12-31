@@ -21,12 +21,12 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
     private String[] mDataset;
 
     // Store a member variable for the contacts
-    private Set<String> mContacts;
+    private List<String> mContacts;
     // Store the context for easy access
     private Context mContext;
 
     // Pass in the contact array into the constructor
-    public WatchListAdapter(Context context, Set<String> contacts) {
+    public WatchListAdapter(Context context, List<String> contacts) {
         mContacts = contacts;
         mContext = context;
     }
@@ -74,7 +74,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
     @Override
     public void onBindViewHolder(WatchListAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
-        String contact = (String) mContacts.toArray()[position];
+        String contact = (String) mContacts.get(position);
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;

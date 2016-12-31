@@ -12,10 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import stocks.softified.com.stockalerts.utils.AutocompleteAsyncTask;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
     private Handler handler = new Handler();
     private Context context;
 
-    Set<String> watchList = new HashSet<>();
+    List<String> watchList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +96,13 @@ public class MainActivity extends AppCompatActivity{
                     searchQuery = searchQuery.substring(0, searchQuery.indexOf("("));
                     searchView.setQuery(searchQuery,false);
 
-                    insertSymbolInDB(searchQuery);
-                    watchList.add(searchQuery);
+                    if(!watchList.contains(searchQuery)) {
+                        insertSymbolInDB(searchQuery);
+                        watchList.add(searchQuery);
+                    }
                     myAdapter.notifyDataSetChanged();
+                    searchView.clearFocus();
+
                     return true;
                 }
 
